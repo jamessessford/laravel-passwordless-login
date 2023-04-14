@@ -42,7 +42,7 @@ class LaravelPasswordlessLoginController extends Controller
      */
     public function login(Request $request)
     {
-        if (!$this->urlGenerator->hasCorrectSignature($request) ||
+        if (!$this->urlGenerator->hasCorrectSignature($request, false) ||
             ($this->urlGenerator->signatureHasNotExpired($request) && !$this->passwordlessLoginService->requestIsNew())) {
             throw new InvalidSignatureException();
         } else if (!$this->urlGenerator->signatureHasNotExpired($request)) {
@@ -61,7 +61,7 @@ class LaravelPasswordlessLoginController extends Controller
 
         if (method_exists(Auth::guard($guard), 'login')) {
             Auth::guard($guard)->login($user, $rememberLogin);
-            
+
             abort_unless($user == Auth::guard($guard)->user(), 401);
         }
 
