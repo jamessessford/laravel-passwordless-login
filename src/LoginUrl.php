@@ -61,7 +61,8 @@ class LoginUrl
                 'redirect_to'   => $this->redirect_url,
                 'user_type'     => UserClass::toSlug(get_class($this->user)),
                 'user_guard'    => $this->user_guard,
-            ]
+            ],
+            false
         );
     }
 }
